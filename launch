@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# my laptop has both an integrated and a discrete NVIDIA GPU. this script checks for the presence of 
+# prime-run, part of PRIME (https://wiki.archlinux.org/title/PRIME), and uses it to force the use
+# of the discrete GPU instead of the integrated graphics. if you know a better way, i'm all ears!
+
+executable="$1"
+prime="prime-run"
+
+if command -v $prime &> /dev/null
+then
+    printf "launching $executable with PRIME offloading\n"
+    $prime $executable
+else
+    printf "launching $executable wthout PRIME offloading\n"
+    $executable
+fi

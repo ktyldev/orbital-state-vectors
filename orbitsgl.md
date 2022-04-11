@@ -1,7 +1,3 @@
-# OrbitsGL
-
-An OpenGL application to display the 
-
 # Requirements
 
 ## Primitives
@@ -11,15 +7,16 @@ An OpenGL application to display the
 Orbits are drawn from polylines.
 Lines are one pixel thick, regardless of their distance to the camera.
 
-## Circles
+### Circles
 
 The focus of the orbit and the satellite are circles.
 The circles may be a fixed width.
 
 ## Orbit
 
-I can view an elliptical orbit in 3D space.
+I can view an orbit in 3D space.
 The orbit is one pixel thick.
+The orbit may by elliptical, hyberbolic or parabolic.
 
 ## Satellite
 
