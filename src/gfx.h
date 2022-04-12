@@ -8,6 +8,8 @@
 
 #include "io.h"
 
+#define VERT_SIZE 2
+
 SDL_Window* createWindow(int width, int height);
 
 GLuint compileShader(const char* path, GLenum type);
