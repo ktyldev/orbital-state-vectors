@@ -8,7 +8,6 @@ struct Grid
     int vertCount;
     GLuint vbo;
     GLuint vao;
-    int vboLength;
 };
 
 // generate a grid with side length n. n refers to the vertices per side, not tiles.

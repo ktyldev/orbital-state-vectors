@@ -23,13 +23,19 @@ int main()
 
     init();
 
-    // TODO: vertices for trajectory
     // TODO: 3D camera
+
+    int n;
 
     // generate a grid
     struct Grid grid;
-    int n = 6;
+    n = 6;
     generateGrid(&grid, n);
+
+    // generate trajectory
+    struct Trajectory trajectory;
+    n = 100;
+    generateTrajectory(&trajectory, n);
 
     int frames;
     for (frames = 0; !checkQuit(); frames++)
@@ -37,6 +43,7 @@ int main()
         // TODO: clear screen
 
         drawGrid(grid, shaderProgram);
+        drawTrajectory(trajectory, shaderProgram);
 
         SDL_GL_SwapWindow(window);
     }

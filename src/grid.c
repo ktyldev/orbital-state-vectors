@@ -47,14 +47,13 @@ void generateGridVertices(struct Grid* g, int n)
 
 void generateGrid(struct Grid* g, int n)
 {
+    g->vertCount = 4*n;
+    int vboLength = g->vertCount*VERT_SIZE;
+
     generateGridVertices(g, n);
 
     glGenVertexArrays(1, &(*g).vao);
     glBindVertexArray(g->vao);
-
-    g->vertCount = 4*n;
-
-    g->vboLength = 4*n*VERT_SIZE;
 
     // generate a vertex buffer
     glGenBuffers(1, &(*g).vbo);
@@ -64,15 +63,16 @@ void generateGrid(struct Grid* g, int n)
     // ...and upload vertex data to the bound vbo.
     // we use GL_STATIC_DRAW for the usage pattern because we do not expect grid vertices to change
     // while the application is running.
-    glBufferData(GL_ARRAY_BUFFER, g->vboLength*sizeof(GLfloat), g->vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vboLength*sizeof(GLfloat), g->vertices, GL_STATIC_DRAW);
 }
 
 void drawGrid(struct Grid g, GLuint shaderProgram)
 {
-    // enable vertex attribute arrays for grid
     GLint pos = glGetAttribLocation(shaderProgram, "position");
     glVertexAttribPointer(pos, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(pos);
+
+    glBindBuffer(GL_ARRAY_BUFFER, g.vbo);
 
     // draw grid
     glBindVertexArray(g.vao);
