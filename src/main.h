@@ -4,3 +4,4 @@
 #include "gfx.h"
 #include "grid.h"
 #include "trajectory.h"
+#include "cam.h"

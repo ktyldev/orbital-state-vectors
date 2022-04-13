@@ -1,8 +1,14 @@
 #version 150
 
-in vec4 position;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+in vec3 position;
 
 void main()
 {
-    gl_Position = position;
+    mat4 camera = projection * view;
+
+    gl_Position = camera * model * vec4(position, 1.0);
 }

@@ -19,23 +19,32 @@ void init()
 
 int main()
 {
-    printf("hello, world! welcome home :)\n");
-
     init();
 
-    // TODO: 3D camera
+    printf("hello, world! welcome home :)\n");
 
-    int n;
-
-    // generate a grid
+    // generate scene objects
     struct Grid grid;
-    n = 6;
-    generateGrid(&grid, n);
-
-    // generate trajectory
     struct Trajectory trajectory;
-    n = 100;
-    generateTrajectory(&trajectory, n);
+    generateGrid(&grid, 6);
+    generateTrajectory(&trajectory, 100);
+
+    // 3D camera with view and projection matrices
+    struct Camera camera = createCamera();
+
+    // TODO: the model matrix will be updated at runtime later in order for 
+    // the model to spin.
+    mat4 model;
+    glm_mat4_identity(model);
+
+    // upload matrices to shader uniforms
+    GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+    GLint uniView = glGetUniformLocation(shaderProgram, "view");
+    GLint uniProjection = glGetUniformLocation(shaderProgram, "projection");
+
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, (float*)camera.view);
+    glUniformMatrix4fv(uniProjection, 1, GL_FALSE, (float*)camera.proj);
 
     int frames;
     for (frames = 0; !checkQuit(); frames++)

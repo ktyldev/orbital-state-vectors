@@ -13,14 +13,17 @@ void generateTrajectory(struct Trajectory* t, int n)
         int vi = VERT_SIZE * i;
 
         float a = (float)i / (float)n * 2 * PI;
+
         float x = cos(a);
         float y = sin(a);
+        float z = 0;
 
         t->vertices[vi + 0] = x;
         t->vertices[vi + 1] = y;
+        t->vertices[vi + 2] = z;
     }
 
-    for (int i = 0; i < 2 * n; i++)
+    for (int i = 0; i < VERT_SIZE * n; i++)
     {
         t->vertices[i] *= 0.5;
     }

@@ -6,6 +6,8 @@ void generateGridVertices(struct Grid* g, int n)
     // allocate space for vertices
     g->vertices = calloc(4 * n * VERT_SIZE, sizeof(GLfloat));
 
+    float offset = -0.5;
+
     // generate columns
     for (int i = 0; i < n; i++)
     {
@@ -14,11 +16,14 @@ void generateGridVertices(struct Grid* g, int n)
 
         float x = i;
         float y = 0;
+        float z = 0;
 
         g->vertices[vi + 0] = x;
         g->vertices[vi + 1] = y;
-        g->vertices[vi + 2] = x;
-        g->vertices[vi + 3] = n-1;
+        g->vertices[vi + 2] = z;
+        g->vertices[vi + 3] = x;
+        g->vertices[vi + 4] = n-1;
+        g->vertices[vi + 5] = z;
     }
 
     // generate rows
@@ -26,22 +31,28 @@ void generateGridVertices(struct Grid* g, int n)
     {
         int vi = 2 * VERT_SIZE * (i + n);
 
-        float x = i;
-        float y = 0;
+        float x = 0;
+        float y = i;
+        float z = 0;
 
-        g->vertices[vi + 1] = x;
-        g->vertices[vi + 0] = y;
-        g->vertices[vi + 3] = x;
-        g->vertices[vi + 2] = n-1;
+        g->vertices[vi + 0] = x;
+        g->vertices[vi + 1] = y;
+        g->vertices[vi + 2] = z;
+        g->vertices[vi + 3] = n-1;
+        g->vertices[vi + 4] = y;
+        g->vertices[vi + 5] = z;
     }
 
     // scale and position the grid to fit centrally in the window
     float scale = 1.0/(float)(n-1);
-    float offset = -0.5;
     for (int i = 0; i < 4 * VERT_SIZE * n; i++)
     {
         g->vertices[i] *= scale;
-        g->vertices[i] += offset;
+
+        if (i % 3 != 2)
+        {
+            g->vertices[i] += offset;
+        }
     }
 }
 

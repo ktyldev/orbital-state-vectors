@@ -8,7 +8,7 @@
 
 #include "io.h"
 
-#define VERT_SIZE 2
+#define VERT_SIZE 3
 
 SDL_Window* createWindow(int width, int height);
 
