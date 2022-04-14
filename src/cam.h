@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gfx.h"
+#include "clock.h"
 
 #include <cglm/cam.h>
 
@@ -14,5 +15,7 @@ struct Camera
     vec3 up;
     mat4 view;
     mat4 proj;
+    float fov;
 };
-struct Camera createCamera();
+void createCamera(struct Camera* c);
+void updateCamera(struct Camera* c);

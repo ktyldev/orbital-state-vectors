@@ -17,20 +17,27 @@ void init()
     glUseProgram(shaderProgram);
 }
 
+void clearScreen()
+{
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 int main()
 {
     init();
 
     printf("hello, world! welcome home :)\n");
 
+    // 3D camera with view and projection matrices
+    struct Camera camera;
+    createCamera(&camera);
+
     // generate scene objects
     struct Grid grid;
     struct Trajectory trajectory;
     generateGrid(&grid, 6);
     generateTrajectory(&trajectory, 100);
-
-    // 3D camera with view and projection matrices
-    struct Camera camera = createCamera();
 
     // TODO: the model matrix will be updated at runtime later in order for 
     // the model to spin.
@@ -43,13 +50,15 @@ int main()
     GLint uniProjection = glGetUniformLocation(shaderProgram, "projection");
 
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, (float*)camera.view);
-    glUniformMatrix4fv(uniProjection, 1, GL_FALSE, (float*)camera.proj);
 
     int frames;
     for (frames = 0; !checkQuit(); frames++)
     {
-        // TODO: clear screen
+        clearScreen();
+
+        updateCamera(&camera);
+        glUniformMatrix4fv(uniView, 1, GL_FALSE, (float*)camera.view);
+        glUniformMatrix4fv(uniProjection, 1, GL_FALSE, (float*)camera.proj);
 
         drawGrid(grid, shaderProgram);
         drawTrajectory(trajectory, shaderProgram);
