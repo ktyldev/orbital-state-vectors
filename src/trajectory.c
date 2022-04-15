@@ -39,9 +39,12 @@ void generateTrajectory(struct Trajectory* t, int n)
 
 void drawTrajectory(struct Trajectory t, GLuint shaderProgram)
 {
-    GLint pos = glGetAttribLocation(shaderProgram, "position");
-    glVertexAttribPointer(pos, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(pos);
+    GLint loc = glGetUniformLocation(shaderProgram, "color");
+    glUniform3f(loc, 0.9, 0.9, 1.0);
+
+    loc = glGetAttribLocation(shaderProgram, "position");
+    glVertexAttribPointer(loc, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(loc);
 
     glBindBuffer(GL_ARRAY_BUFFER, t.vbo);
 

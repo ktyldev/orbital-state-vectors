@@ -55,13 +55,7 @@ int main()
 
         updateCamera(&camera, shaderProgram);
 
-        // draw different coloured grid and trajectory
-        GLint loc = glGetUniformLocation(shaderProgram, "color");
-
-        glUniform3f(loc, 0.5, 0.5, 0.5);
         drawGrid(grid, shaderProgram);
-
-        glUniform3f(loc, 1.0, 1.0, 1.0);
         drawTrajectory(trajectory, shaderProgram);
 
         SDL_GL_SwapWindow(window);

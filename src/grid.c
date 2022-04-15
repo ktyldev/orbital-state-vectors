@@ -79,9 +79,12 @@ void generateGrid(struct Grid* g, int n)
 
 void drawGrid(struct Grid g, GLuint shaderProgram)
 {
-    GLint pos = glGetAttribLocation(shaderProgram, "position");
-    glVertexAttribPointer(pos, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(pos);
+    GLint loc = glGetUniformLocation(shaderProgram, "color");
+    glUniform3f(loc, 0.4, 0.35, 0.42);
+
+    loc = glGetAttribLocation(shaderProgram, "position");
+    glVertexAttribPointer(loc, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(loc);
 
     glBindBuffer(GL_ARRAY_BUFFER, g.vbo);
 
