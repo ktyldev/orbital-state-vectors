@@ -2,25 +2,20 @@
 
 void createCamera(struct Camera* c)
 {
-    c->fov = 40;
-
-    vec3 pos = {0.5,1.5,2.0};
-    glm_vec3_copy(pos, c->pos);
+    c->fov = 30;
 
     vec3 up = {0.0,1.0,0.0};
     glm_vec3_copy(up, c->up);
 
     glm_lookat(c->pos, GLM_VEC3_ZERO, c->up, c->view);
     glm_perspective(glm_rad(c->fov), ASPECT, NEAR, FAR, c->proj);
-
-    return c;
 }
 
-void updateCamera(struct Camera* c)
+void updateCamera(struct Camera* c, GLuint shaderProgram)
 {
     float d = 2.0;              // distance
-    float h = 1.5;              // height
-    float speed = 1.0;
+    float h = 1.0;              // height
+    float speed = 0.5;
     float t = now() * speed;
 
     float x = sin(t) * d;
@@ -30,4 +25,10 @@ void updateCamera(struct Camera* c)
     glm_vec3_copy(pos, c->pos);
 
     glm_lookat(c->pos, GLM_VEC3_ZERO, c->up, c->view);
+
+    GLint uniView = glGetUniformLocation(shaderProgram, "view");
+    GLint uniProjection = glGetUniformLocation(shaderProgram, "projection");
+
+    glUniformMatrix4fv(uniView, 1, GL_FALSE, (float*)c->view);
+    glUniformMatrix4fv(uniProjection, 1, GL_FALSE, (float*)c->proj);
 }

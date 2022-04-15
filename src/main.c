@@ -36,7 +36,7 @@ int main()
     // generate scene objects
     struct Grid grid;
     struct Trajectory trajectory;
-    generateGrid(&grid, 6);
+    generateGrid(&grid, 41);
     generateTrajectory(&trajectory, 100);
 
     // TODO: the model matrix will be updated at runtime later in order for 
@@ -46,9 +46,6 @@ int main()
 
     // upload matrices to shader uniforms
     GLint uniModel = glGetUniformLocation(shaderProgram, "model");
-    GLint uniView = glGetUniformLocation(shaderProgram, "view");
-    GLint uniProjection = glGetUniformLocation(shaderProgram, "projection");
-
     glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
 
     int frames;
@@ -56,11 +53,15 @@ int main()
     {
         clearScreen();
 
-        updateCamera(&camera);
-        glUniformMatrix4fv(uniView, 1, GL_FALSE, (float*)camera.view);
-        glUniformMatrix4fv(uniProjection, 1, GL_FALSE, (float*)camera.proj);
+        updateCamera(&camera, shaderProgram);
 
+        // draw different coloured grid and trajectory
+        GLint loc = glGetUniformLocation(shaderProgram, "color");
+
+        glUniform3f(loc, 0.5, 0.5, 0.5);
         drawGrid(grid, shaderProgram);
+
+        glUniform3f(loc, 1.0, 1.0, 1.0);
         drawTrajectory(trajectory, shaderProgram);
 
         SDL_GL_SwapWindow(window);

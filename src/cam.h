@@ -18,4 +18,4 @@ struct Camera
     float fov;
 };
 void createCamera(struct Camera* c);
-void updateCamera(struct Camera* c);
+void updateCamera(struct Camera* c, GLuint shaderProgram);
