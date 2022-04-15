@@ -43,8 +43,8 @@ void generateGridVertices(struct Grid* g, int n)
     }
 
     // scale and position the grid to fit centrally in the window
-    float scale = 10.0/(float)(n-1);
-    float offset = -5.0;
+    float scale = 0.25*(float)n/(float)(n-1);
+    float offset = -0.5 * (float)n * scale;
     for (int i = 0; i < 4 * VERT_SIZE * n; i++)
     {
         g->vertices[i] *= scale;

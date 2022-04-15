@@ -1,12 +1,13 @@
 #include "trajectory.h"
 
-// TODO: look up more digits of pi
-#define PI 3.14159
-
 void generateTrajectory(struct Trajectory* t, int n)
 {
     t->vertCount = n;
     t->vertices = calloc(n * VERT_SIZE, sizeof(GLfloat));
+
+    struct Ellipse e;
+    e.a = 1.0;
+    e.e = 0.9;
 
     for (int i = 0; i < n; i++)
     {
@@ -14,8 +15,15 @@ void generateTrajectory(struct Trajectory* t, int n)
 
         float a = (float)i / (float)n * 2 * PI;
 
-        float x = cos(a);
-        float y = sin(a);
+        // position on ellipse
+        vec2 e_pos;
+        getPosition(e, a, e_pos);
+
+        // ellipse position transformed with respect to the orbit and its focus
+        vec3 o_pos
+
+        float x = e_pos[0];
+        float y = e_pos[1];
         float z = 0;
 
         t->vertices[vi + 0] = x;
@@ -50,4 +58,8 @@ void drawTrajectory(struct Trajectory t, GLuint shaderProgram)
 
     glBindVertexArray(t.vao);
     glDrawArrays(GL_LINE_LOOP, 0, t.vertCount);
+}
+
+void transformPoint(vec2 p2, vec2 p3)
+{
 }

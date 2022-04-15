@@ -5,8 +5,8 @@ GLuint vao;
 GLuint vbo;
 GLuint shaderProgram;
 
-const int WIDTH = 420;
-const int HEIGHT = 420;
+const int WIDTH = 900;
+const int HEIGHT = 900;
 
 void init() 
 { 
@@ -28,6 +28,7 @@ int main()
     init();
 
     printf("hello, world! welcome home :)\n");
+    printf("%d\n", signbit(-5.0));
 
     // 3D camera with view and projection matrices
     struct Camera camera;
@@ -36,11 +37,9 @@ int main()
     // generate scene objects
     struct Grid grid;
     struct Trajectory trajectory;
-    generateGrid(&grid, 41);
+    generateGrid(&grid, 20);
     generateTrajectory(&trajectory, 100);
 
-    // TODO: the model matrix will be updated at runtime later in order for 
-    // the model to spin.
     mat4 model;
     glm_mat4_identity(model);
 
