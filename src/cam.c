@@ -14,14 +14,16 @@ void createCamera(struct Camera* c)
 void updateCamera(struct Camera* c, GLuint shaderProgram)
 {
     float d = 2.0;              // distance
-    float h = 1.0;              // height
+    float h = 0.4;              // height
+    float hv = 0.25;             // height variance
     float speed = 0.5;
     float t = now() * speed;
 
     float x = sin(t) * d;
+    float y = cos(t) * hv + h;
     float z = cos(t) * d;
 
-    vec3 pos = {x,h,z};
+    vec3 pos = {x,y,z};
     glm_vec3_copy(pos, c->pos);
 
     glm_lookat(c->pos, GLM_VEC3_ZERO, c->up, c->view);
