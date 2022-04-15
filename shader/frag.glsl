@@ -9,7 +9,7 @@ out vec4 outColor;
 void main()
 {
     float max = 2.0;
-    float d = smoothstep(1, 0, length(vpos) / max);
+    float r = smoothstep(1, 0, length(vpos) / max);
 
-    outColor = vec4(color, 1.0) * d;
+    outColor = vec4(color, 1.0) * r;
 }

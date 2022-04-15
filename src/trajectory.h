@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <cglm/vec3.h>
+#include <cglm/quat.h>
 
 #include "ellipse.h"
 #include "gfx.h"
@@ -20,4 +21,7 @@ struct Trajectory
 void generateTrajectory(struct Trajectory* t, int n);
 void drawTrajectory(struct Trajectory t, GLuint shaderProgram);
 
-void transformPoint(vec2 p2, vec3 p3);
+void transformPoint(struct Ellipse e, vec2 p2, vec3 p3);
+
+double getArgumentOfAscendingNode();
+double getArgumentOfPeriapsis();

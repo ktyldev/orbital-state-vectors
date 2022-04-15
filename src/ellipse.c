@@ -21,3 +21,10 @@ void getPosition(struct Ellipse e, double t, vec2 p)
     vec2 pos = {x,y};
     glm_vec2_copy(pos, p);
 }
+
+double getFocusDistance(struct Ellipse e)
+{
+    double a = e.a;
+    double b = getSemiMinorAxis(e);
+    return sqrt(a * a - b * b);
+}

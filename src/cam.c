@@ -2,7 +2,7 @@
 
 void createCamera(struct Camera* c)
 {
-    c->fov = 30;
+    c->fov = 60;
 
     vec3 up = {0.0,1.0,0.0};
     glm_vec3_copy(up, c->up);
@@ -14,13 +14,13 @@ void createCamera(struct Camera* c)
 void updateCamera(struct Camera* c, GLuint shaderProgram)
 {
     float d = 2.0;              // distance
-    float h = 0.4;              // height
-    float hv = 0.25;             // height variance
+    float h = 0.6;              // height
+    float hv = 0.1;             // height variance
     float speed = 0.5;
     float t = now() * speed;
 
     float x = sin(t) * d;
-    float y = cos(t) * hv + h;
+    float y = cos(t * 0.5) * hv + h;
     float z = cos(t) * d;
 
     vec3 pos = {x,y,z};

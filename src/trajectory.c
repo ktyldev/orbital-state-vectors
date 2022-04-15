@@ -7,7 +7,7 @@ void generateTrajectory(struct Trajectory* t, int n)
 
     struct Ellipse e;
     e.a = 1.0;
-    e.e = 0.9;
+    e.e = 0.5;
 
     for (int i = 0; i < n; i++)
     {
@@ -20,11 +20,12 @@ void generateTrajectory(struct Trajectory* t, int n)
         getPosition(e, a, e_pos);
 
         // ellipse position transformed with respect to the orbit and its focus
-        vec3 o_pos
+        vec3 o_pos;
+        transformPoint(e, e_pos, o_pos);
 
-        float x = e_pos[0];
-        float y = e_pos[1];
-        float z = 0;
+        float x = o_pos[0];
+        float y = o_pos[1];
+        float z = o_pos[2];
 
         t->vertices[vi + 0] = x;
         t->vertices[vi + 1] = y;
@@ -60,6 +61,28 @@ void drawTrajectory(struct Trajectory t, GLuint shaderProgram)
     glDrawArrays(GL_LINE_LOOP, 0, t.vertCount);
 }
 
-void transformPoint(vec2 p2, vec2 p3)
+void transformPoint(struct Ellipse e, vec2 p2, vec3 p3)
 {
+    // distance from the origin to the focus of the trajectory
+    double focusDistance = getFocusDistance(e);
+
+    double x = p2[0] + focusDistance;
+    double z = p2[1];
+
+    vec3 up = {0.0,1.0,0.0};
+
+    p3[0] = x;
+    p3[1] = 0;
+    p3[2] = z;
+
+    double p = glm_rad(45.0);       // argument of periapsis
+    double W = glm_rad(17.0);       // argument of ascending node
+    double i = glm_rad(20.0);       // inclination
+
+    vec3 toW = {cos(W), 0, sin(W)}; // vector from origin to ascending node
+
+    glm_vec3_rotate(p3, p, up);     // rotate by argument of periapsis
+    glm_vec3_rotate(p3, W, up);     // rotate by argument of ascending node
+    glm_vec3_rotate(p3, i, toW);    // rotate by inclination
 }
+
