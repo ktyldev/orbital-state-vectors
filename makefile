@@ -7,7 +7,7 @@ SHADER_DIR	= shader
 SHADERS 		= $(shell find $(SHADER_DIR) -name *.glsl)
 SHADER_TARGETS 	= $(SHADER:$(SHADER_DIR)/%.glsl=$(BIN_DIR)/%.glsl)
 
-TARGET = $(BIN_DIR)/orbitsgl
+TARGET = $(BIN_DIR)/osv
 LAUNCH = "./launch"
 
 CC		= gcc

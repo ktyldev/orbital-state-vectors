@@ -1,4 +1,4 @@
-# OrbitsGL
+# Orbital State Vectors
 
 An OpenGL application demonstrate the construction and manipulation of an elliptical Keplerian orbit by the use of Keplerian orbits or orbital state vectors.
 
@@ -11,7 +11,7 @@ An OpenGL application demonstrate the construction and manipulation of an ellipt
 
 # Compiling
 
-Run `make` to compile a binary to `bin/orbitsgl`.
+Run `make` to compile a binary to `bin/osv`.
 
 # Running
 
