@@ -2,6 +2,4 @@
 
 #include "input.h"
 #include "gfx.h"
-#include "grid.h"
-#include "trajectory.h"
-#include "cam.h"
+#include "scene.h"

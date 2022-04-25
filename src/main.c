@@ -8,7 +8,9 @@ GLuint shaderProgram;
 const int WIDTH = 900;
 const int HEIGHT = 900;
 
-void init() 
+struct Scene scene;
+
+void openWindow()
 { 
     window = createWindow(WIDTH, HEIGHT);
 
@@ -19,20 +21,8 @@ void init()
 
 int main()
 {
-    init();
-
-    printf("hello, world! welcome home :)\n");
-    printf("%d\n", signbit(-5.0));
-
-    // 3D camera with view and projection matrices
-    struct Camera camera;
-    createCamera(&camera);
-
-    // generate scene objects
-    struct Grid grid;
-    struct Trajectory trajectory;
-    generateGrid(&grid, 20);
-    generateTrajectory(&trajectory, 100);
+    openWindow();
+    createScene(&scene);
 
     mat4 model;
     glm_mat4_identity(model);
@@ -44,13 +34,13 @@ int main()
     int frames;
     for (frames = 0; !checkQuit(); frames++)
     {
+        // update
+        updateCamera(&scene.camera, shaderProgram);
+
+        // render
         clearScreen();
-
-        updateCamera(&camera, shaderProgram);
-
-        drawGrid(grid, shaderProgram);
-        drawTrajectory(trajectory, shaderProgram);
-
+        drawGrid(scene.grid, shaderProgram);
+        drawTrajectory(scene.trajectory, shaderProgram);
         SDL_GL_SwapWindow(window);
     }
 
