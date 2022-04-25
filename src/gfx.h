@@ -12,5 +12,7 @@
 
 SDL_Window* createWindow(int width, int height);
 
+void clearScreen();
+
 GLuint compileShader(const char* path, GLenum type);
 GLuint compileShaderProgram(const char* vsPath, const char* fsPath);
