@@ -39,8 +39,12 @@ int main()
 
         // render
         clearScreen();
+
+        // draw stuff
         drawGrid(scene.grid, shaderProgram);
         drawTrajectory(scene.trajectory, shaderProgram);
+        drawCircle(scene.origin, shaderProgram);
+
         SDL_GL_SwapWindow(window);
     }
 

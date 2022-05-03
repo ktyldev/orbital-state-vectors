@@ -7,8 +7,6 @@
 #include "ellipse.h"
 #include "gfx.h"
 
-#define PI 3.14159
-
 struct Trajectory
 {
     GLfloat* vertices;
