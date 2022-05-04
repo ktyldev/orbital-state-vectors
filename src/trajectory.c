@@ -48,9 +48,15 @@ void generateTrajectory(struct Trajectory* t, int n)
 
 void drawTrajectory(struct Trajectory t, GLuint shaderProgram)
 {
+    // upload uniforms
+    mat4 model;
+    glm_mat4_identity(model);
+    GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
     GLint loc = glGetUniformLocation(shaderProgram, "color");
     glUniform3f(loc, 0.9, 0.9, 1.0);
 
+    // set vertex attributes
     loc = glGetAttribLocation(shaderProgram, "position");
     glVertexAttribPointer(loc, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(loc);

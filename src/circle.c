@@ -28,6 +28,8 @@ void generateCircle(struct Circle* c, float r)
         c->vertices[vi + 2] = z;
     }
 
+    glm_vec3_copy(GLM_VEC3_ZERO, c->pos);
+
     glGenVertexArrays(1, &(c->vao));
     glBindVertexArray(c->vao);
 
@@ -41,7 +43,7 @@ void drawCircle(struct Circle c, GLuint shaderProgram)
 {
     // first we want to draw a circle of points around the origin
     GLint loc = glGetUniformLocation(shaderProgram, "color");
-    glUniform3f(loc, 1.0, 0.0, 0.0);
+    glUniform3f(loc, 1.0, 0.7, 0.5);
 
     loc = glGetAttribLocation(shaderProgram, "position");
     glVertexAttribPointer(loc, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
@@ -50,7 +52,18 @@ void drawCircle(struct Circle c, GLuint shaderProgram)
     glBindBuffer(GL_ARRAY_BUFFER, c.vbo);
 
     glBindVertexArray(c.vao);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, c.vertCount);
 
-    // then we want to align it to face the camera with the model matrix
+    // always face the camera
+    vec3 camPos;
+    getCameraPos(camPos);
+
+    mat4 lookat;
+    mat4 model;
+    glm_lookat(c.pos, camPos, GLM_YUP, lookat);
+    glm_mat4_inv(lookat, model);
+
+    GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
+
+    glDrawArrays(GL_TRIANGLE_FAN, 0, c.vertCount);
 }

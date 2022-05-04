@@ -2,7 +2,7 @@
 
 const int GRID_COLUMNS = 19;
 const int TRAJECTORY_POINTS = 100;
-const float ORIGIN_RADIUS = 0.1;
+const float ORIGIN_RADIUS = 0.02;
 
 void createScene(struct Scene* s)
 {

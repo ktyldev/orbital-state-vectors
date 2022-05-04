@@ -22,14 +22,10 @@ void openWindow()
 int main()
 {
     openWindow();
+
     createScene(&scene);
 
-    mat4 model;
-    glm_mat4_identity(model);
-
     // upload matrices to shader uniforms
-    GLint uniModel = glGetUniformLocation(shaderProgram, "model");
-    glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
 
     int frames;
     for (frames = 0; !checkQuit(); frames++)

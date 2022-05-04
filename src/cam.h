@@ -3,8 +3,6 @@
 #include "gfx.h"
 #include "clock.h"
 
-#include <cglm/cam.h>
-
 #define ASPECT  1   // TODO: actually get this from screen dims
 #define NEAR    0.01
 #define FAR     1000

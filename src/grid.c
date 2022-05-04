@@ -6,7 +6,6 @@ void generateGridVertices(struct Grid* g, int n)
     // allocate space for vertices
     g->vertices = calloc(4 * n * VERT_SIZE, sizeof(GLfloat));
 
-
     // generate columns
     for (int i = 0; i < n; i++)
     {
@@ -79,9 +78,15 @@ void generateGrid(struct Grid* g, int n)
 
 void drawGrid(struct Grid g, GLuint shaderProgram)
 {
+    // uniforms
+    mat4 model;
+    glm_mat4_identity(model);
+    GLint uniModel = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(uniModel, 1, GL_FALSE, (float*)model);
     GLint loc = glGetUniformLocation(shaderProgram, "color");
     glUniform3f(loc, 0.4, 0.35, 0.42);
 
+    // vertex attributes
     loc = glGetAttribLocation(shaderProgram, "position");
     glVertexAttribPointer(loc, VERT_SIZE, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(loc);
